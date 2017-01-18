@@ -14,4 +14,6 @@
     * [JVM](jvm.md)
     * [并发](并发.md)
 * [redis](redis.md)
+* [redis](redis.md)
+    * [安装](安装.md)
 
