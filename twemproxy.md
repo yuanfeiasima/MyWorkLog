@@ -88,3 +88,8 @@ OK
 ```
 http://www.cnblogs.com/haoxinyue/p/redis.html
 ```
+
+### 使用
+```
+防火墙
+```
