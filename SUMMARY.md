@@ -16,4 +16,6 @@
 * [redis](redis.md)
     * [安装](安装.md)
     * [Twemproxy](twemproxy.md)
+* [Mysql](mysql.md)
+    * [安装mysql](安装mysql.md)
 
