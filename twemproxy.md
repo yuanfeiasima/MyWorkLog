@@ -1,6 +1,7 @@
 ```
 sudo yum -y groupinstall "Development Tools"
 ```
+
 ```
 先卸载
 rpm -qf /usr/bin/autoconf
@@ -14,18 +15,24 @@ make
 sudo make install
 cd ..
 ```
+
 reconf
+
 ```
 sudo autoreconf -ivf
 ```
+
 之后重新编译
+
 ```
 [root@COS1 src]# tar xvf nutcracker-0.3.0.tar.gz
 [root@COS1 nutcracker-0.3.0]# cd nutcracker-0.3.0
 [root@COS1 src]#./configure 
 [root@COS1 nutcracker-0.3.0]# make && make install
 ```
-编辑配置文件            
+
+编辑配置文件
+
 ```
 [root@COS1 conf]# cd /usr/local/src/nutcracker-0.3.0/conf
 [root@COS1 conf]# cp nutcracker.yml /etc/
@@ -41,14 +48,17 @@ alpha:
   servers: --两台redis服务器的地址和端口
    - 10.23.22.240:6379:1   
    - 10.23.22.241:6379:1
-
 ```
+
 测试配置文件
+
 ```
 [root@COS1 nutcracker-0.3.0]# nutcracker -t /etc/nutcracker.yml 
 nutcracker: configuration file 'conf/nutcracker.yml' syntax is ok
 ```
+
 启动twemproxy：
+
 ```
 [root@COS1 nutcracker-0.3.0]# nutcracker  --help
 This is nutcracker-0.3.0
@@ -75,7 +85,9 @@ Options:
 [root@COS1 nutcracker-0.3.0]# ps -ef|grep nutcracker
 root     15358     1  0 02:40 ?        00:00:00 nutcracker -d -c /etc/nutcracker.yml
 ```
+
 测试twemproxy：
+
 ```
 [root@COS1 ~]# redis-cli -p 22121
 127.0.0.1:22121> get kin
@@ -85,11 +97,16 @@ OK
 127.0.0.1:22121> get kin
 "king"
 ```
+
 ```
 http://www.cnblogs.com/haoxinyue/p/redis.html
 ```
 
 ### 使用
+
 ```
 防火墙
 ```
+
+
+
