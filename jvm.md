@@ -14,7 +14,7 @@
 
 -XX:SurvivorRatio 幸存区
 
-```
+```java
 设置两个Survivor区和eden的比值
 
 例如：8，表示两个Survivor:eden=2:8，即一个Survivor占年轻代的1/10
