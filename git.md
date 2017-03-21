@@ -11,3 +11,6 @@ r) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 已经提交了不合适的修改到版本库时，想要撤销本次提交，参考[版本回退](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013744142037508cf42e51debf49668810645e02887691000)一节，不过前提是没有推送到远程库。
 
+```
+不自动转换文件格式 git config --global core.autocrlf false
+```
