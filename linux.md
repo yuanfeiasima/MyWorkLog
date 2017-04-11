@@ -1,6 +1,6 @@
-修改ip 
+修改ip
 
-`路径 /etc/sysconfig/network-scripts`
+路径 /etc/sysconfig/network-scripts
 
 DEVICE="eth0"
 
@@ -21,6 +21,4 @@ GATEWAY=192.168.183.2
 DNS1=202.106.0.20
 
 重启网络服务 /etc/init.d/network restart
-
-
 
