@@ -43,6 +43,11 @@
 
 8. workCount 比如：单词在文章中出现的次数
 
-9. 
+9. 核心思想：分而治之
+
+10. map 分 reduce合
+
+11. 执行流程![](/assets/mapReduce执行流程.png)
+
 
 
