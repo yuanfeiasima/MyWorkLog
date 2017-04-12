@@ -21,4 +21,6 @@
 * [linux](linux.md)
   * [命令](命令.md)
 * [hadoop](hadoop.md)
+  * [mapReduce](hadoop/mapreduce.md)
+* [mysql](mysql.md)
 
