@@ -49,5 +49,13 @@
 
 11. 执行流程![](/assets/mapReduce执行流程.png)
 
+12. 两个重要的线程
+
+    1. JobTracker\(master\) 调度监控管理
+
+       1. 通过周期性的心跳来监控
+
+    2. TaskTracker\(slave\)
+
 
 
