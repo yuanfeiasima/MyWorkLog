@@ -13,6 +13,7 @@
 * [Java](java.md)
   * [JVM](jvm.md)
   * [并发](并发.md)
+  * [缓存](huan-cun.md)
 * [redis](redis.md)
   * [安装](安装.md)
   * [Twemproxy](twemproxy.md)
