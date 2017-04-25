@@ -1,4 +1,5 @@
 [try git](https://try.github.io)
+
 ```bash
 git 设置log可视化
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%c
@@ -14,3 +15,8 @@ r) %C(bold blue)<%an>%Creset' --abbrev-commit"
 ```
 不自动转换文件格式 git config --global core.autocrlf false
 ```
+
+最近一次提交文件名称 git log -1 --name-status
+
+
+
