@@ -26,4 +26,5 @@
 * [hadoop](hadoop.md)
   * [mapReduce](hadoop/mapreduce.md)
 * [mysql](mysql.md)
+  * [索引](mysql/suo-yin.md)
 
