@@ -15,7 +15,6 @@
   * [JVM](jvm.md)
   * [并发](并发.md)
   * [缓存](huan-cun.md)
-  * [网页链接收藏](wang-ye-lian-jie-shou-cang.md)
   * JMS
   * [分布式一致性](fen-bu-shi-yi-zhi-xing.md)
 * [redis](redis.md)
