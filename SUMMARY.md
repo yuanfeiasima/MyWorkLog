@@ -17,6 +17,7 @@
   * [缓存](huan-cun.md)
   * JMS
   * [分布式一致性](fen-bu-shi-yi-zhi-xing.md)
+  * [博文收藏](bo-wen-shou-cang.md)
 * [redis](redis.md)
   * [安装](安装.md)
   * [Twemproxy](twemproxy.md)
