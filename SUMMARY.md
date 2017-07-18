@@ -16,12 +16,13 @@
   * [并发多线程](并发.md)
   * [缓存](huan-cun.md)
   * [JMS](jms.md)
-  * [分布式一致性](fen-bu-shi-yi-zhi-xing.md)
+  * [分布式](fen-bu-shi-yi-zhi-xing.md)
   * [博文收藏](bo-wen-shou-cang.md)
   * [cpu占用过高](cpuzhan-yong-guo-gao.md)
   * [图片](tu-pian.md)
   * [系统设计与经典场景](xi-tong-she-ji-yu-jing-dian-chang-jing.md)
   * [JVM参数与垃圾回收](jvmcan-shu-yu-la-ji-hui-shou.md)
+  * [关键字](guan-jian-zi.md)
 * [redis](redis.md)
   * [安装](安装.md)
   * [Twemproxy](twemproxy.md)
@@ -41,7 +42,7 @@
 * [dubbo](dubbo.md)
   * [rest](dubbo/rest.md)
 * zookeeper
-* MQ
+* [MQ](mq.md)
 * tbSchedule
 * [设计模式](she-ji-mo-shi.md)
   * [单例模式](she-ji-mo-shi/dan-li-mo-shi.md)

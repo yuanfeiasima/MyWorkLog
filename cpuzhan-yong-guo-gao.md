@@ -8,15 +8,11 @@
 
 4. jstack pid \|grep tid -A 30 打印堆栈信息
 
-
-
 ### **第二种方式**
 
 1. top 命令 找到占用cpu最高的pid
 2. top -H -pPID 找到对应的线程， -H 指显示线程，-p 是指定进程
-3. jstack -l 2023 &gt; tempfile.txt  2023线程id  在这个文件中能看到线程状态 类 方法信息
-
-
+3. jstack -l 2023 &gt; tempfile.txt  2023线程id  在这个文件中能看到线程状态 类 方法信息
 
 ### **结果提示：**
 
@@ -32,5 +28,9 @@ java的pid文件被删除了，jstack命令读不到信息了。
 
 ### **解决方式：**
 
-http://zhangshaoxiong.blog.51cto.com/4408282/1310166
+[http://zhangshaoxiong.blog.51cto.com/4408282/1310166](http://zhangshaoxiong.blog.51cto.com/4408282/1310166)
+
+### 高cpu占用问题
+
+[http://m.blog.csdn.net/blade2001/article/details/9065985](http://m.blog.csdn.net/blade2001/article/details/9065985)
 
