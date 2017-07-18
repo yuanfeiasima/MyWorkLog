@@ -19,7 +19,7 @@
   * 多线程 lock
   * 内存模型
   * 并发
-    * 并发包
+    * 并发包 线程安全集合 底层原理-- 队列和锁机制
     * 双重检查为什么不安全？--并不能保证在单处理器上或多处理器上顺利运行，原因java平台内存模型允许所谓的‘无需写入’
   * 本地方法 [http://www.cnblogs.com/wade-luffy/p/5813747.html](http://www.cnblogs.com/wade-luffy/p/5813747.html)
 
@@ -31,7 +31,9 @@
   * pipline lua
   * 因为redis单线程执行的，所以一个lua脚本是连贯执行的，然后里面按照操作逐个自己写回滚
 
-  * memcache、redis区别
+  * memcache、redis区别？
+
+  * redis value最大值 string最大512m list最大2^32-1 set 2^32-1 incr 数字 2^64-1
 
 * mq kafka区别
 
@@ -55,6 +57,8 @@
 
   * 强一致性，相关表在一个库里，牺牲了扩展性
 
+  * 一致性哈希 [http://blog.csdn.net/cywosp/article/details/23397179](http://blog.csdn.net/cywosp/article/details/23397179) 在memcache分布式存储 数据库分库分表中 都可以用，主要目标是就原来的求余 在进行拓展的时候，转移的数据较少，不需要将所有原数据再次进行hash分配
+
 * 分布式锁 扣减库存
 
   * 微信红包是这样实现的，对不同的红包/库存分成不同的queue，同一个红包/库存的在一个queue里顺序执行。这样同一个库存就不会超卖
@@ -63,7 +67,7 @@
 
   * 秒杀  [http://blog.csdn.net/zhiguozhu/article/details/50517527](http://blog.csdn.net/zhiguozhu/article/details/50517527)
 
-  * 库存扣多了，到底怎么整 [https://mp.weixin.qq.com/s?\_\_biz=MjM5ODYxMDA5OQ==&mid=2651960197&idx=1&sn=2e5c17d521772d28d39f31af5d22b34a&chksm=bd2d06598a5a8f4f9de2da89ba8fab711823935442fc632b65d461c923852485ff392c987568&mpshare=1&scene=23&srcid=06157RQsTuEkEOSl1o7TdTJ0\#rd](https://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&mid=2651960197&idx=1&sn=2e5c17d521772d28d39f31af5d22b34a&chksm=bd2d06598a5a8f4f9de2da89ba8fab711823935442fc632b65d461c923852485ff392c987568&mpshare=1&scene=23&srcid=06157RQsTuEkEOSl1o7TdTJ0#rd)
+  * 库存扣多了，到底怎么整 [https://mp.weixin.qq.com/s?\_\_biz=MjM5ODYxMDA5OQ==∣=2651960197&idx=1&sn=2e5c17d521772d28d39f31af5d22b34a&chksm=bd2d06598a5a8f4f9de2da89ba8fab711823935442fc632b65d461c923852485ff392c987568&mpshare=1&scene=23&srcid=06157RQsTuEkEOSl1o7TdTJ0\#rd](https://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&mid=2651960197&idx=1&sn=2e5c17d521772d28d39f31af5d22b34a&chksm=bd2d06598a5a8f4f9de2da89ba8fab711823935442fc632b65d461c923852485ff392c987568&mpshare=1&scene=23&srcid=06157RQsTuEkEOSl1o7TdTJ0#rd)
 
   * update stock set num=$y where sid=$sid
 
@@ -71,12 +75,17 @@
 
     update stock set num=$num\_new where sid=$sid and num=$num\_old
 
-    这正是大家常说的“Compare And Set”（CAS），是一种常见的降低读写锁冲突，保证数据一致性的方法。（目前是手动扔一个runtimeException 或者他的子类， spring事务默认在有这个异常的时候进行回滚操作）
+    这正是大家常说的“Compare And Set”（CAS），是一种常见的降低读写锁冲突，保证数据一致性的方法。（目前是手动扔一个runtimeException 或者他的子类， spring事务默认在有这个异常的时候进行回滚操作）
 
-* 分布式事务 内部事务 外部事务
+* 分布式事务 内部事务 外部事务？
 
   * [http://www.jianshu.com/p/1156151e20c8?from=timeline&isappinstalled=0](http://www.jianshu.com/p/1156151e20c8?from=timeline&isappinstalled=0)
 
+* http 幂等 [http://www.cnblogs.com/weidagang2046/archive/2011/06/04/idempotence.html](http://www.cnblogs.com/weidagang2046/archive/2011/06/04/idempotence.html)
+
+* 接口去重，接口调用后存储下接口的唯一码，下次调用时校验这个唯一码是否使用过，唯一码可以是订单号之类的，存储可以存在数据库、redis、本地缓存，设置过期时间
+* 限流 令牌桶 计数器 滑动窗口 漏桶 --依赖nginx 用的是令牌桶  依赖AtomInteger 用的是计数器
+  * [http://jinnianshilongnian.iteye.com/blog/2305117](http://jinnianshilongnian.iteye.com/blog/2305117)
 * mysql
 
   * 聚簇索引 --顺序结构与数据存储屋里结构一致的一种索引，并且一个表的聚簇索引只能有唯一的一条
@@ -94,10 +103,13 @@
 
     * 聚簇索引是基础，表示数据和b+树之间的关系，聚簇索引是对存储在磁盘上的数据重新组织以按照一个或多个列的值排序的算法
 
-  * innoDB 锁原理 
+  * innoDB 锁原理
+
     * 只有通过索引条件检索数据，innoDB才使用行级锁，否则InnoDB将使用表锁，在实际开发中应当注意；如果索引建立的不合适，优化器有可能使用表锁
     * 行锁是加在记录上的锁，InnoDB中的记录是以B+树索引的方式组织在一起的，InnoDB的行锁实际是 index record lock，即对B+索引叶子节点的锁。索引可能有多个，因此操作一行数据时，有可能会加多个行锁在不同的B+树上。
+
   * 最左原则
+
   * 索引建立技巧
   * for update 是否打开事务
   * 死锁
@@ -109,14 +121,34 @@
 
   * 这个是属于大偏移量分页 select \* from t where id &gt; 10000 limit 10
 
-* spring 
+* 缓存系统设计 缓存击穿 缓存刷新 缓存失效
+
+* spring
+
   * @Resource的作用相当于@Autowired，只不过@Autowired按byType自动注入，而@Resource默认按 byName自动注入罢了。@Resource有两个属性是比较重要的，分是name和type，Spring将@Resource注解的name属性解析为bean的名字，而type属性则解析为bean的类型。所以如果使用name属性，则使用byName的自动注入策略，而使用type属性时则使用byType自动注入策略。如果既不指定name也不指定type属性，这时将通过反射机制使用byName自动注入策略。
     　　@Resource装配顺序
     　　1. 如果同时指定了name和type，则从Spring上下文中找到唯一匹配的bean进行装配，找不到则抛出异常
     　　2. 如果指定了name，则从上下文中查找名称（id）匹配的bean进行装配，找不到则抛出异常
     　　3. 如果指定了type，则从上下文中找到类型匹配的唯一bean进行装配，找不到或者找到多个，都会抛出异常
     　　4. 如果既没有指定name，又没有指定type，则自动按照byName方式进行装配；如果没有匹配，则回退为一个原始类型进行匹配，如果匹配则自动装配； 
+  * dispatchler [http://sishuok.com/forum/blogPost/list/5188.html](http://sishuok.com/forum/blogPost/list/5188.html)
+  * 整体处理流程 [http://www.cnblogs.com/plxx/p/5400467.html](http://www.cnblogs.com/plxx/p/5400467.html)
+  * springmvc里面自动转化json靠什么？
+
+  * requestMapping的用法 例如矩阵参数 可变参数 必填参数
+
+  * controller 与context的注解分开来扫
+
+  * springEL在bean装载的时候怎么找对象的属性
+
+  * aop怎么实现的 串这aspectJ 可能考察切面表达式
+
+  * core 是啥作用 beans的bean加载过程
+
+  * 事务处理[https://my.oschina.net/u/1415809/blog/209075](https://my.oschina.net/u/1415809/blog/209075)
+
 * dubbo 官方介绍 调用机制，协议，长连接，注册机
+
 * 排序
 
   * 冒泡 最好n 最坏平均 对数复杂度
@@ -173,6 +205,70 @@
   * 因为查询了一百多万条记录，就有一百万个对象持续的在s0上分配
 
   * minor gc 如果给的新生代小了 频率会更高 给的新生代大了 频率会低 但是gc时间会变长
+
+* 垃圾回收器   回收器：接口和页面使用CMS+ParNew，保证接口和页面停顿短；作业定时任务使用Parallel Scavenge+Parallel Old，高吞吐量，减少GC消耗的时间比例
+
+  * 回收算法 接口、页面 CMS：老年代、多线程并发、标记清除算法  ParNew：新生代、多线程并行、复制算法 定时任务 Parallel Scavenge：新生代、多线程并、复制算法 Parallel Old：老年代、多线程并行、标记整理算法
+
+* 给定a、b两个文件，各存放50亿个url，每个url各占64字节，内存限制是4G，让你找出a、b文件共同的url？
+
+  方案1：可以估计每个文件安的大小为5G×64=320G，远远大于内存限制的4G。所以不可能将其完全加载到内存中处理。考虑采取分而治之的方法。
+
+  遍历文件a，对每个url求取hash\(url\)%1000，然后根据所取得的值将url分别存储到1000个小文件（记为a0,a1,...,a999）中。这样每个小文件的大约为300M。
+
+  遍历文件b，采取和a相同的方式将url分别存储到1000小文件（记为b0,b1,...,b999）。这样处理后，所有可能相同的url都在对应的小文件（a0vsb0,a1vsb1,...,a999vsb999）中，不对应的小文件不可能有相同的url。然后我们只要求出1000对小文件中相同的url即可。
+
+  求每对小文件中相同的url时，可以把其中一个小文件的url存储到hash\_set中。然后遍历另一个小文件的每个url，看其是否在刚才构建的hash\_set中，如果是，那么就是共同的url，存到文件里面就可以了。
+
+* **JD  **T3先执行，在T3的run中，调用t2.join，让t2执行完成后再执行t3，在T2的run中，调用t1.join，让t1执行完成后再让T2执行  
+
+  * ```java
+    public class JoinTest2 {  
+  
+        // 1.现在有T1、T2、T3三个线程，你怎样保证T2在T1执行完后执行，T3在T2执行完后执行  
+  
+  
+        public static void main(String[] args) {  
+  
+            final Thread t1 = new Thread(new Runnable() {  
+  
+                @Override  
+                public void run() {  
+                    System.out.println("t1");  
+                }  
+            });  
+            final Thread t2 = new Thread(new Runnable() {  
+  
+                @Override  
+                public void run() {  
+                    try {  
+                        //引用t1线程，等待t1线程执行完  
+                        t1.join();  
+                    } catch (InterruptedException e) {  
+                        e.printStackTrace();  
+                    }  
+                    System.out.println("t2");  
+                }  
+            });  
+            Thread t3 = new Thread(new Runnable() {  
+  
+                @Override  
+                public void run() {  
+                    try {  
+                        //引用t2线程，等待t2线程执行完  
+                        t2.join();  
+                    } catch (InterruptedException e) {  
+                        e.printStackTrace();  
+                    }  
+                    System.out.println("t3");  
+                }  
+            });  
+            t3.start();  
+            t2.start();  
+            t1.start();  
+        }  
+    }  
+    ```
 
 
 
