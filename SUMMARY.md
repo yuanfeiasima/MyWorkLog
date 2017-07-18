@@ -15,10 +15,11 @@
   * [JVM](jvm.md)
   * [并发](并发.md)
   * [缓存](huan-cun.md)
-  * JMS
+  * [JMS](jms.md)
   * [分布式一致性](fen-bu-shi-yi-zhi-xing.md)
   * [博文收藏](bo-wen-shou-cang.md)
   * [cpu占用过高](cpuzhan-yong-guo-gao.md)
+  * [图片](tu-pian.md)
 * [redis](redis.md)
   * [安装](安装.md)
   * [Twemproxy](twemproxy.md)
