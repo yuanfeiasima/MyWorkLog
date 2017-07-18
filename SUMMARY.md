@@ -37,6 +37,7 @@
   * [索引](mysql/suo-yin.md)
 * [spring](spring.md)
 * [数据结构与算法](shu-ju-jie-gou-yu-suan-fa.md)
+  * [二分查找](shu-ju-jie-gou-yu-suan-fa/er-fen-cha-zhao.md)
 * [dubbo](dubbo.md)
   * [rest](dubbo/rest.md)
 * zookeeper
