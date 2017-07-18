@@ -51,13 +51,26 @@
 
 * 线程同步的方式
 
+* 什么是分布式系统 分布式：一个业务分拆多个子业务，部署在不同的服务器上  
+  ，集群：同一个业务，部署在多个服务器上
+
+  * 分布式系统对于用户而言，他们面对的就是一个服务器，提供用户需要的服务而已，而实际上这些服务是通过背后的众多服务器组成的一个分布式系统，因此分布式系统看起来像是一个超级计算机一样。
+
+    ```
+     例如淘宝，平时大家都会使用，它本身就是一个分布式系统，我们通过浏览器访问淘宝网站时，这个请求的背后就是一个庞大的分布式系统在为我们提供服务，整个系统中有的负责请求处理，有的负责存储，有的负责计算，最终他们相互协调把最后的结果返回并呈现给用户。
+    ```
+
+  * 分布式是相对中心化而来，强调的是任务在多个物理隔离的节点上进行。中心化带来的主要问题是可靠性，若中心节点宕机则整个系统不可用，分布式除了解决部分中心化问题，也倾向于分散负载，但分布式会带来很多的其他问题，最主要的就是一致性。
+
+    集群就是逻辑上处理同一任务的机器集合，可以属于同一机房，也可分属不同的机房。分布式这个概念可以运行在某个集群里面，某个集群也可作为分布式概念的一个节点。
+
 * 分布式系统数据一致性 cap base [http://www.jianshu.com/p/1156151e20c8?from=timeline&isappinstalled=0](#)
 
   * 补偿机制
 
   * 强一致性，相关表在一个库里，牺牲了扩展性
 
-  * 一致性哈希 [http://blog.csdn.net/cywosp/article/details/23397179](http://blog.csdn.net/cywosp/article/details/23397179) 在memcache分布式存储 数据库分库分表中 都可以用，主要目标是就原来的求余 在进行拓展的时候，转移的数据较少，不需要将所有原数据再次进行hash分配
+  * 一致性哈希 [http://blog.csdn.net/cywosp/article/details/23397179](http://blog.csdn.net/cywosp/article/details/23397179) 在memcache分布式存储 数据库分库分表中 都可以用，主要目标是就原来的求余 在进行拓展的时候，转移的数据较少，不需要将所有原数据再次进行hash分配
 
 * 分布式锁 扣减库存
 
@@ -84,8 +97,12 @@
 * http 幂等 [http://www.cnblogs.com/weidagang2046/archive/2011/06/04/idempotence.html](http://www.cnblogs.com/weidagang2046/archive/2011/06/04/idempotence.html)
 
 * 接口去重，接口调用后存储下接口的唯一码，下次调用时校验这个唯一码是否使用过，唯一码可以是订单号之类的，存储可以存在数据库、redis、本地缓存，设置过期时间
+
 * 限流 令牌桶 计数器 滑动窗口 漏桶 --依赖nginx 用的是令牌桶  依赖AtomInteger 用的是计数器
+
   * [http://jinnianshilongnian.iteye.com/blog/2305117](http://jinnianshilongnian.iteye.com/blog/2305117)
+  * guava官方的 Ratelimiter
+
 * mysql
 
   * 聚簇索引 --顺序结构与数据存储屋里结构一致的一种索引，并且一个表的聚簇索引只能有唯一的一条
@@ -111,8 +128,11 @@
   * 最左原则
 
   * 索引建立技巧
+
   * for update 是否打开事务
+
   * 死锁
+
   * in or 走索引的问题
     * in会走索引，但是如果传入的值不存在是不是不走索引？？
     * or不会走？
@@ -206,9 +226,9 @@
 
   * minor gc 如果给的新生代小了 频率会更高 给的新生代大了 频率会低 但是gc时间会变长
 
-* 垃圾回收器   回收器：接口和页面使用CMS+ParNew，保证接口和页面停顿短；作业定时任务使用Parallel Scavenge+Parallel Old，高吞吐量，减少GC消耗的时间比例
+* 垃圾回收器   回收器：接口和页面使用CMS+ParNew，保证接口和页面停顿短；作业定时任务使用Parallel Scavenge+Parallel Old，高吞吐量，减少GC消耗的时间比例
 
-  * 回收算法 接口、页面 CMS：老年代、多线程并发、标记清除算法  ParNew：新生代、多线程并行、复制算法 定时任务 Parallel Scavenge：新生代、多线程并、复制算法 Parallel Old：老年代、多线程并行、标记整理算法
+  * 回收算法 接口、页面 CMS：老年代、多线程并发、标记清除算法  ParNew：新生代、多线程并行、复制算法 定时任务 Parallel Scavenge：新生代、多线程并、复制算法 Parallel Old：老年代、多线程并行、标记整理算法
 
 * 给定a、b两个文件，各存放50亿个url，每个url各占64字节，内存限制是4G，让你找出a、b文件共同的url？
 
@@ -220,55 +240,6 @@
 
   求每对小文件中相同的url时，可以把其中一个小文件的url存储到hash\_set中。然后遍历另一个小文件的每个url，看其是否在刚才构建的hash\_set中，如果是，那么就是共同的url，存到文件里面就可以了。
 
-* **JD  **T3先执行，在T3的run中，调用t2.join，让t2执行完成后再执行t3，在T2的run中，调用t1.join，让t1执行完成后再让T2执行  
-
-  * ```java
-    public class JoinTest2 {  
-  
-        // 1.现在有T1、T2、T3三个线程，你怎样保证T2在T1执行完后执行，T3在T2执行完后执行  
-  
-  
-        public static void main(String[] args) {  
-  
-            final Thread t1 = new Thread(new Runnable() {  
-  
-                @Override  
-                public void run() {  
-                    System.out.println("t1");  
-                }  
-            });  
-            final Thread t2 = new Thread(new Runnable() {  
-  
-                @Override  
-                public void run() {  
-                    try {  
-                        //引用t1线程，等待t1线程执行完  
-                        t1.join();  
-                    } catch (InterruptedException e) {  
-                        e.printStackTrace();  
-                    }  
-                    System.out.println("t2");  
-                }  
-            });  
-            Thread t3 = new Thread(new Runnable() {  
-  
-                @Override  
-                public void run() {  
-                    try {  
-                        //引用t2线程，等待t2线程执行完  
-                        t2.join();  
-                    } catch (InterruptedException e) {  
-                        e.printStackTrace();  
-                    }  
-                    System.out.println("t3");  
-                }  
-            });  
-            t3.start();  
-            t2.start();  
-            t1.start();  
-        }  
-    }  
-    ```
-
+* 
 
 

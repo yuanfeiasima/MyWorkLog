@@ -13,7 +13,7 @@
   * [ziroom](日志/ziroom.md)
 * [Java](java.md)
   * [JVM](jvm.md)
-  * [并发](并发.md)
+  * [并发多线程](并发.md)
   * [缓存](huan-cun.md)
   * [JMS](jms.md)
   * [分布式一致性](fen-bu-shi-yi-zhi-xing.md)
